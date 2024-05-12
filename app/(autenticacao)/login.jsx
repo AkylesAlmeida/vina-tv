@@ -6,6 +6,7 @@ import { icons } from '../../constants'
 import Formulario from '../../components/Formulario'
 import CustomButton from '../../components/CustomButtom'
 import { Link } from 'expo-router'
+import AsyncStorage from '@react-native-community/async-storage'
 
 const Login = () => {
 
@@ -16,9 +17,18 @@ const Login = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const submit = () => {
-
-  }
+  const submit = async () => {
+    //Recupera os dados do AsyncStorage
+    try {
+      const savedEmail = await AsyncStorage.getItem('user_email');
+      const savedPassword = await AsyncStorage.getItem('user_password');
+  
+      //Faz o login utilizando os dados salvos
+      //Se tudo tiver certo, faz a navegação para a tela login
+    } catch (error) {
+      console.error('Erro ao recuperar dados do usuário:', error);
+    }
+  };
 
   return (
     <SafeAreaView className="bg-primaryblack h-full">

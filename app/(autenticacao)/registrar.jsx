@@ -8,6 +8,8 @@ import CustomButton from '../../components/CustomButtom'
 import { Link } from 'expo-router'
 
 import axios from 'axios'
+import AsyncStorage from '@react-native-community/async-storage'
+
 
 const Registrar = () => {
 
@@ -46,9 +48,19 @@ const Registrar = () => {
   };
   
 
-  const submit = () => {
-
-  }
+  const submit = async () => {
+    //Seu código existente de validação e envio dos dados
+  
+    //Após enviar os dados com sucesso, salva o email e a senha no AsyncStorage
+    try {
+      await AsyncStorage.setItem('user_email', form.email);
+      await AsyncStorage.setItem('user_password', form.password);
+      //Após salvar, navega para a tela de login ou avisa de erro
+    } catch (error) {
+      console.error('Erro ao salvar dados do usuário:', error);
+    }
+  };
+  
 
   return (
     <SafeAreaView className="bg-primaryblack h-full">
@@ -90,9 +102,9 @@ const Registrar = () => {
 
           <Formulario 
           title="Senha"
-          value={form.senha}
+          value={form.password}
           handleChangeText={(e) => setForm({ ...form,
-            senha: e})}
+            password: e})}
           otherStyles="mt-3"
           keyboardType="password"/>
 
